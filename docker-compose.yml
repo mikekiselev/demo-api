@@ -7,14 +7,14 @@ services:
         uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: travellist
+    image: digitalocean.com/php
     container_name: api-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./src:/var/www
     networks:
-      - travellist
+      - demo-api
 
   db:
     image: mysql:5.7
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./docker/mysql:/docker-entrypoint-initdb.d
     networks:
-      - travellist
+      - demo-api
 
   adminer:
       image: adminer:latest
@@ -50,8 +50,8 @@ services:
         - ./docker/nginx/conf.d:/etc/nginx/conf.d
         - ./docker/nginx/log:/var/log/nginx
       networks:
-        - travellist
+        - demo-api
       command: nginx -g "daemon off;"
 networks:
-  travellist:
+  demo-api:
     driver: bridge
