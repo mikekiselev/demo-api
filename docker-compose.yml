@@ -7,7 +7,7 @@
         context: .
         dockerfile: Dockerfile
       image: digitalocean.com/php
-      container_name: cbrApp
+      container_name: demoApiLaravel
       restart: unless-stopped
       tty: true
       environment:
@@ -23,7 +23,7 @@
     #Nginx Service
     webserver:
       image: nginx:alpine
-      container_name: cbrWebserver
+      container_name: demoApiNginx
       restart: unless-stopped
       tty: true
       ports:
@@ -39,7 +39,7 @@
     #MySQL Service
     db:
       image: mysql:5.7.22
-      container_name: demoLaravelDb
+      container_name: demoApiMySql
       restart: unless-stopped
       tty: true
       ports:
