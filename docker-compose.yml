@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
-      - ./:/var/www
+      - ./src:/var/www
     networks:
       - travellist
 
@@ -46,7 +46,7 @@ services:
       ports:
         - 8000:80
       volumes:
-        - ./:/var/www
+        - ./src:/var/www
         - ./docker/nginx/conf.d:/etc/nginx/conf.d
         - ./docker/nginx/log:/var/log/nginx
       networks:
