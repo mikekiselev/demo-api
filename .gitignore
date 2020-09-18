@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Laravel template
 /vendor/
+/src/vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
@@ -101,5 +102,7 @@ fabric.properties
 .idea/codeStyles/
 .idea/demo-api.iml
 .idea/modules.xml
+
+/docker/nginx/log/
 
 
