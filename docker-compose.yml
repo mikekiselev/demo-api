@@ -8,50 +8,64 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: digitalocean.com/php
+    tty: true
     container_name: api-app
     restart: unless-stopped
-    working_dir: /var/www/
+    working_dir: /var/www
+    environment:
+      TZ: Europe/Moscow
     volumes:
       - ./src:/var/www
     networks:
-      - demo-api
-
+      - app-network
+    depends_on:
+      - db
   db:
-    image: mysql:5.7
+    image: 'mysql:5.7.31'
     container_name: api-db
     restart: unless-stopped
+    tty: true
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      TZ: Europe/Moscow
+      MYSQL_DATABASE: api_demo
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: api_user
+      MYSQL_PASSWORD: SomePassw0rd
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - ./docker/mysql:/docker-entrypoint-initdb.d
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./docker/mysql/scripts/:/docker-entrypoint-initdb.d/
+      - ./docker/mysql/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
     networks:
-      - demo-api
+      - app-network
 
   adminer:
-      image: adminer:latest
-      environment:
-        ADMINER_DEFAULT_SERVER: mysql_db_container
-      ports:
+    image: adminer:latest
+    tty: true
+    ports:
         - 8080:8080
+    networks:
+      - app-network
 
   nginx:
       image: nginx:1.18-alpine
       container_name: api-nginx
       restart: unless-stopped
+      tty: true
       ports:
         - 8000:80
       volumes:
         - ./src:/var/www
         - ./docker/nginx/conf.d:/etc/nginx/conf.d
         - ./docker/nginx/log:/var/log/nginx
-      networks:
-        - demo-api
       command: nginx -g "daemon off;"
+      networks:
+        - app-network
+
 networks:
-  demo-api:
+  app-network:
     driver: bridge
