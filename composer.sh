@@ -1,4 +1,4 @@
 #!/bin/bash
 cd src/
-docker run --rm -v $(pwd):/app composer $1 $2
+docker run --rm -v $(pwd):/app composer $1 $2 $3
 #sudo chown -R $USER:$USER ~/laravel-app
