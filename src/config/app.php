@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Sentry\Laravel\ServiceProvider::class,
+        L5Swagger\L5SwaggerServiceProvider::class,
     ],
 
     /*
