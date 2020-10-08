@@ -22,6 +22,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title'];
+
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
     /**
      * The roles that belong to the user.
      */
