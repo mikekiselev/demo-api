@@ -68,7 +68,7 @@ class TagController extends Controller
     /**
      * @OA\Get(
      * path="/api/tags/{id}",
-     * summary="index",
+     * summary="show",
      * description="возвращаем тег",
      * operationId="show",
      *  @OA\Parameter(
