@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @SWG\Definition(
- *  definition="Post",
+ *  definition="Tag",
  *  @SWG\Property(
  *      property="id",
  *      type="integer"
