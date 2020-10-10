@@ -85,7 +85,7 @@ class TagController extends Controller
      *    @OA\MediaType(
      *           mediaType="application/json",
      *      ),
-     *      @OA\Response(
+     *  @OA\Response(
      *      response=404,
      *      description="not found"
      *   ),
@@ -100,9 +100,7 @@ class TagController extends Controller
     {
         try {
             return Tag::findOrFail($tag_id);
-       }
-        catch (ModelNotFoundException $exception)
-        {
+        } catch (ModelNotFoundException $exception) {
             return response()->json(['tag' => 'Not Found!'], 404);
         }
 
@@ -149,10 +147,10 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int $tag_id
+     * @param int $tag_id
      * @return \Illuminate\Http\Response
      */
-    public function update(TagRequest $request, $tag_id)
+    public function update(TagRequest $request, int $tag_id)
     {
 
         try {
@@ -161,21 +159,10 @@ class TagController extends Controller
             logger("update tag: {$tag->name}");
             $tag->save();
             return response()->json($tag);
-        }
-        catch (\Throwable $exception)
-        {
+        } catch (\Throwable $exception) {
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
 
 
-  /*  public function destroy(TagRequest $request, int $id)
-    {
-        $tag = Tag::findOrFail($id);
-        if ($tag->forceDelete()) {
-            logger("force delete tag: {$tag->name}");
-            return response(null, 204);
-        }
-
-    }*/
 }
